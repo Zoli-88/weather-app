@@ -15,10 +15,22 @@
     <section class="container">
       <span class="clock"></span>
       <div class="loading"></div>
+      <span class="location-info"></span>
+      <div class="weather-info"></div>
+      <canvas id="chart"></canvas>
+      <form onsubmit="renderSearchByCity(event)">
+        <label for="search">Search</label>
+        <input type="search" id="search" name="search" placeholder="eg. London">
+        <button type="submit">GO</button>
+      </form>
     </section>
+    <!-- Font awesome -->
     <script src="https://kit.fontawesome.com/ce9ffc1494.js" crossorigin="anonymous"></script>
+    <!-- ChartJS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.2.0/chart.umd.js"></script>
     <script src="js/api.js"></script>
     <script src="js/date.js"></script>
+    <script src="js/chart.js"></script>
     <script src="js/components.js"></script>
     <script src="js/render.js"></script>
 </body>

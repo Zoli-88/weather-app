@@ -6,11 +6,6 @@
 
 :root {
   /* Variables */
-  /* Font weights */
-  --light: 300;
-  --regular: 400;
-  --medium: 500;
-  --semibold: 600;
 
   /* Colors */
   --text-clr-primary: #76a3ca;
@@ -18,9 +13,14 @@
   /* Backgrounds */
   --bg-clr-primary: #294a55;
   
-
   /* Border */
   --border-clr: #389cce;
+
+  /* Font weights */
+  --light: 300;
+  --regular: 400;
+  --medium: 500;
+  --semibold: 600;
 }
 
 html {
@@ -29,10 +29,20 @@ html {
 
 body {
   background: #294a55;
+  color: var(--text-clr-primary);
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+ul {
+  list-style-type: none;
+}
+
+i {
+font-size: 64px;
+color: var(--text-clr-primary);
 }
 
 .container {
@@ -40,11 +50,15 @@ body {
   padding: 32px;
   border: 3px solid var(--border-clr);
   border-radius: 10px;
-  width: 500px;
-  height: 500px;
+  width: 1000px;
+  height: 600px;
 }
 
 .loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -55,27 +69,27 @@ body {
   position: absolute;
   top: 10px;
   left: 10px;
+  font-size: 64px;
+  font-weight: var(--medium);
 }
 
-h2 {
-  text-align: center;
-  font-weight: var(--semibold);
-  color: #76a3ca;
-  font-size: 2rem;
+.location-info {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
 }
 
-label, select, button {
-  font-size: 1.2rem;
-  font-family: inherit;
+.weather-info {
+  position: absolute;
+  right: 10px;
+  bottom: 100px;
 }
 
-label, button {
-  color: var(--text-clr-primary);
+.current-temperature {
+  font-size: 48px;
+  font-weight: var(--medium);
 }
 
-button {
-  outline: none;
-  border: none;
-}
+
 
 
