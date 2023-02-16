@@ -50,8 +50,14 @@ color: var(--text-clr-primary);
   padding: 32px;
   border: 3px solid var(--border-clr);
   border-radius: 10px;
-  width: 1000px;
-  height: 600px;
+  width: 1200px;
+  height: 800px;
+}
+
+.form-container {
+  position: absolute;
+  bottom: 60px;
+  left: 10px;
 }
 
 .loading {
@@ -65,12 +71,19 @@ color: var(--text-clr-primary);
   transform: translate(-50%, -50%);
 }
 
-.clock {
+.time-info {
   position: absolute;
   top: 10px;
   left: 10px;
-  font-size: 64px;
   font-weight: var(--medium);
+}
+
+.date {
+  font-size: 32px;
+}
+
+.clock {
+  font-size: 16px;
 }
 
 .location-info {
@@ -90,6 +103,9 @@ color: var(--text-clr-primary);
   font-weight: var(--medium);
 }
 
+canvas {
+  margin-top: 50px;
+}
 
 
 

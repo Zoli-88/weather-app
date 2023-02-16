@@ -13,16 +13,27 @@
 </head>
 <body>
     <section class="container">
-      <span class="clock"></span>
+      <div class="time-info"></div>
       <div class="loading"></div>
-      <span class="location-info"></span>
+      <div class="location-info"></div>
       <div class="weather-info"></div>
       <canvas id="chart"></canvas>
-      <form onsubmit="renderSearchByCity(event)">
-        <label for="city">Search</label>
-        <input type="search" id="city" name="city" placeholder="eg. London">
-        <button type="submit">GO</button>
-      </form>
+      <div class="form-container">
+        <form onsubmit="renderSearchByCity(event)">
+          <label for="city">City</label>
+          <input type="search" id="city" name="city" placeholder="eg. London">
+          <button type="submit">Search</button>
+        </form>
+        <br>
+        <form onsubmit="renderSearchByCoords(event)">
+          <label for="latitude">Latitude</label>
+          <input type="search" id="latitude" name="latitude" placeholder="eg. 46.770439">
+
+          <label for="city">Longitude</label>
+          <input type="search" id="longitude" name="longitude" placeholder="eg. 23.591423">
+          <button type="submit">Search</button>
+        </form>
+      </div>
     </section>
     <!-- Font awesome -->
     <script src="https://kit.fontawesome.com/ce9ffc1494.js" crossorigin="anonymous"></script>
@@ -30,8 +41,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.2.0/chart.umd.js"></script>
     <script src="js/api.js"></script>
     <script src="js/date.js"></script>
-    <script src="js/chart.js"></script>
     <script src="js/components.js"></script>
     <script src="js/render.js"></script>
+    <script src="js/chart.js"></script>
 </body>
 </html>

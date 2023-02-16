@@ -5,12 +5,20 @@ function loadingComponent() {
   `
 }
 
-function clockComponent(clock) {
-  return `${clock}`
+function clockComponent(clock, date) {
+  const currentDate = date || new Date();
+
+  return `
+    <span class="date">${currentDate}</span>
+    <br>
+    <span class="clock">${clock}</span>
+  `
 }
 
 function locationInfoComponent(city, country) {
-  return `${city}, ${country}`
+  return `
+    <span>${city}, ${country}</span>
+  `
 }
 
 function weatherInfoComponent(currentTemp, maxTemp, minTemp, weatherInfo, weatherInfoIcon) {

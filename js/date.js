@@ -6,7 +6,8 @@ initDate();
 
 function getCurrentTime() {
   const clock = new Date().toLocaleTimeString([], {hour: '2-digit', minute: 'numeric'});
-  renderTime(clock);
+  const date = new Date().toLocaleDateString();
+  renderTime(clock, date);
 }
 
 function initDate() {

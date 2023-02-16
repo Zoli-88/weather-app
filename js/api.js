@@ -12,16 +12,14 @@ async function listWeatherForecast(lat, lon, citySearch) {
         return data;
     }
     
-     if (citySearch) {
-        endpointUrl += `?q=${citySearch}&appid=${API_KEY}`;
+    if (citySearch) {
+        endpointUrl += `?q=${citySearch}&units=${UNITS}&appid=${API_KEY}`;
         const response = await fetch(endpointUrl);
         const data = await response.json();
         return data;
     }
 
-    else {
-        console.log("TRY AGAIN")
-    }
+    console.log("TRY AGAIN");
 }
 
 // let currentLocation = {
