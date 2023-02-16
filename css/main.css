@@ -9,9 +9,14 @@
 
   /* Colors */
   --text-clr-primary: #76a3ca;
+  --text-clr-accent: #333;
 
   /* Backgrounds */
   --bg-clr-primary: #294a55;
+  --bg-clr-secondary: #161616;
+
+  /* Buttons */
+  ---bg-btn-clr: #202020;
   
   /* Border */
   --border-clr: #389cce;
@@ -31,9 +36,9 @@ body {
   background: #294a55;
   color: var(--text-clr-primary);
   height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: minmax(950px, 75vw);
+  place-content: center;
 }
 
 ul {
@@ -45,19 +50,55 @@ font-size: 64px;
 color: var(--text-clr-primary);
 }
 
-.container {
+
+input, button, input::placeholder {
+  outline: none;
+  font: inherit;
+}
+
+input {
+  border: none;
+  color: var(--text-clr-accent);
+  background: var(--text-clr-primary);
+  width: 150px;
+  margin: 0 2px;
+}
+
+input::placeholder {
+  color: var(--text-clr-accent);
+}
+
+button {
+  color: var(--text-clr-primary);
+  background: var(---bg-btn-clr);
+  cursor: pointer;
+  border-left: 4px solid var(--border-clr);
+  padding: 4px 8px;
+}
+
+.widget-container {
+  background: var(--bg-clr-secondary);
   position: relative;
   padding: 32px;
   border: 3px solid var(--border-clr);
   border-radius: 10px;
-  width: 1200px;
-  height: 800px;
+}
+
+.info-container, .weather {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.chart {
+  margin: 16px auto;
+  width: 800px;
 }
 
 .form-container {
-  position: absolute;
-  bottom: 60px;
-  left: 10px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .loading {
@@ -71,12 +112,10 @@ color: var(--text-clr-primary);
   transform: translate(-50%, -50%);
 }
 
-.time-info {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  font-weight: var(--medium);
+.time {
+  margin-right: auto;
 }
+
 
 .date {
   font-size: 32px;
@@ -86,26 +125,11 @@ color: var(--text-clr-primary);
   font-size: 16px;
 }
 
-.location-info {
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-}
-
-.weather-info {
-  position: absolute;
-  right: 10px;
-  bottom: 100px;
-}
-
 .current-temperature {
-  font-size: 48px;
+  font-size: 24px;
   font-weight: var(--medium);
 }
 
-canvas {
-  margin-top: 50px;
-}
 
 
 

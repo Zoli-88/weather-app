@@ -24,10 +24,8 @@ function locationInfoComponent(city, country) {
 function weatherInfoComponent(currentTemp, maxTemp, minTemp, weatherInfo, weatherInfoIcon) {
   return `
     <img src=${weatherInfoIcon} alt=${weatherInfo}/>
-    <ul>
-      <li class="current-temperature">${currentTemp} &degC</li>
-      <li>${weatherInfo}</li>
-      <li>Min ${minTemp} &degC/Max ${maxTemp} &degC</li>
-    </ul>
+    <span class="current-temperature">${currentTemp} &degC</span>
+    <span>${weatherInfo}</span>
+    <span>Min ${minTemp} &degC / Max ${maxTemp} &degC</span>
   `
 }

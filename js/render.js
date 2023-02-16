@@ -5,9 +5,9 @@ const ICON_SIZE = "2x";
 // DOM elements
 const $container = document.querySelector(".container");
 const $loading = document.querySelector(".loading");
-const $timeandDateInfo = document.querySelector(".time-info");
-const $locationInfo = document.querySelector(".location-info");
-const $weatherInfo = document.querySelector(".weather-info");
+const $timeandDateInfo = document.querySelector("#time");
+const $locationInfo = document.querySelector("#location");
+const $weatherInfo = document.querySelector("#weather");
 const canvas = document.getElementById('chart');
 const ctx = canvas.getContext("2d");
 let myChart;

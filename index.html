@@ -12,12 +12,14 @@
   <title>Document</title>
 </head>
 <body>
-    <section class="container">
-      <div class="time-info"></div>
+    <section class="widget-container">
+      <div class="info-container">
+        <div id="time" class="time"></div>
+        <div id="weather" class="weather"></div>
+        <div id="location"></div>
+      </div>
       <div class="loading"></div>
-      <div class="location-info"></div>
-      <div class="weather-info"></div>
-      <canvas id="chart"></canvas>
+      <canvas id="chart" class="chart"></canvas>
       <div class="form-container">
         <form onsubmit="renderSearchByCity(event)">
           <label for="city">City</label>
