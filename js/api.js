@@ -7,19 +7,20 @@ async function listWeatherForecast(lat, lon, citySearch) {
 
     if (lat && lon) {
         endpointUrl += `?lat=${lat}&lon=${lon}&units=${UNITS}&appid=${API_KEY}`;
-        const response = await fetch(endpointUrl);
-        const data = await response.json();
-        return data;
     }
     
     if (citySearch) {
         endpointUrl += `?q=${citySearch}&units=${UNITS}&appid=${API_KEY}`;
-        const response = await fetch(endpointUrl);
-        const data = await response.json();
-        return data;
     }
 
-    console.log("TRY AGAIN");
+    const response = await fetch(endpointUrl);
+    const data = await response.json();
+
+    if (!response.ok) {
+        throw data.message;
+    }
+
+    return data;
 }
 
 // let currentLocation = {

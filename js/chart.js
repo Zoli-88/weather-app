@@ -2,12 +2,12 @@ function generateChart(weeklyTemp) {
 
 
   myChart = new Chart(ctx, {
-    type: 'line',
+    type: "line",
     data: {
-      labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+      labels: ["Mon", "Tue", "Wed", "Thu", "Fri"],
       color: "#cbd1d6",
       datasets: [{
-        label: 'Temperature (°C)',
+        label: "Temperature (°C)",
         data: weeklyTemp,
         borderWidth: 1,
       }]

@@ -1,45 +1,62 @@
 // Constants / Variables
 const ICON_SIZE = "2x";
 
-
 // DOM elements
 const $container = document.querySelector(".container");
 const $loading = document.querySelector(".loading");
-const $timeandDateInfo = document.querySelector("#time");
-const $locationInfo = document.querySelector("#location");
-const $weatherInfo = document.querySelector("#weather");
-const canvas = document.getElementById('chart');
-const ctx = canvas.getContext("2d");
+const $time = document.querySelector("#time");
+const $location = document.querySelector("#location");
+const $weather = document.querySelector("#weather");
+const $cardList = document.querySelector("#card-list");
+const $listMessage = document.querySelector("#list-message");
+
+// ChartJS library
+const $canvas = document.getElementById("chart");
+const ctx = $canvas.getContext("2d");
 let myChart;
+
+// Local storage
+let weatherDataList = JSON.parse(localStorage.getItem("weatherDataList")) || [];
 
 // On load
 initRendering();
 
 // Functions
 function initRendering() {
-    renderLoading();
+    if (weatherDataList.length) {
+        clearListMessage();
+        renderCardList();
+    } 
+    renderStatus();
     getCurrentTime();
     renderWeatherForecast();
 }
 
-function renderLoading() {
-    $loading.innerHTML = loadingComponent();
+function renderCardList() {
+    const uniqueWeatherList = [...new Set(weatherDataList)];
+
+    uniqueWeatherList.forEach(weatherData => {
+        $cardList.innerHTML += cardComponent(weatherData);
+    })
+}
+
+function renderStatus(error) {
+    $loading.innerHTML = statusComponent(error);
 }
 
 function renderTime(clock, date) {
-    $timeandDateInfo.innerHTML = clockComponent(clock, date);
+    $time.innerHTML = clockComponent(clock, date);
 }
 
-function renderLocationInfo(city, country) {
-    $locationInfo.innerHTML = locationInfoComponent(city, country);
+function renderLocation(city, country) {
+    $location.innerHTML = locationComponent(city, country);
 }
 
-function renderWeatherInfo(currentTemp, maxTemp, minTemp, weatherInfo, weatherInfoIcon) {
-    $weatherInfo.innerHTML = weatherInfoComponent(currentTemp, maxTemp, minTemp, weatherInfo, weatherInfoIcon);
+function renderWeather(currentTemp, maxTemp, minTemp, weatherInfo, weatherInfoIcon) {
+    $weather.innerHTML = weatherComponent(currentTemp, maxTemp, minTemp, weatherInfo, weatherInfoIcon);
 }
 
 async function renderWeatherForecast() {
-
     try {
         navigator.geolocation.getCurrentPosition(async position => {
             const forecast = await listWeatherForecast(position.coords.latitude, position.coords.longitude);
@@ -57,10 +74,10 @@ async function renderWeatherForecast() {
                 const dailyTemp = Math.round(forecast.list[i].main.temp);
                 weeklyTemp.push(dailyTemp);
             }
-            clearLoading();
+            clearStatus();
             renderForecastGraphic(weeklyTemp);
-            renderLocationInfo(city, country);
-            renderWeatherInfo(currentTemp, maxTemp, minTemp, weatherInfo, weatherInfoIcon);
+            renderLocation(city, country);
+            renderWeather(currentTemp, maxTemp, minTemp, weatherInfo, weatherInfoIcon);
         })
 
     } catch (error) {
@@ -76,13 +93,16 @@ async function renderSearchByCity(e) {
     e.preventDefault();
     const formData = new FormData(e.target);
     const citySearch = formData.get("city");
+
     clearForecast();
-    renderLoading();
+    renderStatus();
     try {
         const forecast = await listWeatherForecast(null, null, citySearch);
         console.log(forecast);
         const city = forecast.city.name;
         const country = forecast.city.country;
+        const lat = forecast.city.coord.lat;
+        const lon = forecast.city.coord.lon;
         const currentDay = forecast.list[0];
         const currentTemp = Math.round(currentDay.main.temp);
         const maxTemp = Math.round(currentDay.main.temp_max);
@@ -95,13 +115,36 @@ async function renderSearchByCity(e) {
             const dailyTemp = Math.round(forecast.list[i].main.temp);
             weeklyTemp.push(dailyTemp);
         }
-        clearLoading();
+        clearStatus();
         renderForecastGraphic(weeklyTemp);
-        renderLocationInfo(city, country);
-        renderWeatherInfo(currentTemp, maxTemp, minTemp, weatherInfo, weatherInfoIcon);
+        renderLocation(city, country);
+        renderWeather(currentTemp, maxTemp, minTemp, weatherInfo, weatherInfoIcon);
+        let alreadyExists = false;
+        let newWeatherData = {
+            // if the key value pairs are identical, no need to add the value
+            city,
+            country,
+            lat,
+            lon
+        }
 
+        weatherDataList.forEach(weatherData => {
+            if (weatherData.lat === lat && weatherData.lon === lon) {
+                alreadyExists = true;
+            }
+        })
+
+        if (!alreadyExists) {
+            weatherDataList.unshift(newWeatherData)
+            localStorage.setItem("weatherDataList", JSON.stringify(weatherDataList))
+        }
+
+        clearListMessage();
+        clearCardList();
+        renderCardList();
     } catch (error) {
-        console.log(error)
+        clearStatus();
+        renderStatus(error);
     }
 }
 
@@ -112,10 +155,9 @@ async function renderSearchByCoords(e) {
     const lon = formData.get("longitude");
 
     clearForecast();
-    renderLoading();
+    renderStatus();
     try {
         const forecast = await listWeatherForecast(lat, lon, null);
-        console.log(forecast);
         const city = forecast.city.name;
         const country = forecast.city.country;
         const currentDay = forecast.list[0];
@@ -130,20 +172,30 @@ async function renderSearchByCoords(e) {
             const dailyTemp = Math.round(forecast.list[i].main.temp);
             weeklyTemp.push(dailyTemp);
         }
-        clearLoading();
+        clearStatus();
         renderForecastGraphic(weeklyTemp);
-        renderLocationInfo(city, country);
-        renderWeatherInfo(currentTemp, maxTemp, minTemp, weatherInfo, weatherInfoIcon);
+        renderLocation(city, country);
+        renderWeather(currentTemp, maxTemp, minTemp, weatherInfo, weatherInfoIcon);
 
     } catch (error) {
-        console.log(error)
+        clearStatus();
+        renderStatus(error);
     }
 }
 
 // Clearing functions
-function clearLoading() {
-    $loading.innerHTML = '';
+function clearStatus() {
+    $loading.innerHTML = "";
 }
+
+function clearCardList() {
+    $cardList.innerHTML = "";
+}
+
+function clearListMessage() {
+    $listMessage.innerHTML = "";
+}
+
 
 function clearForecastGraphic() {
     // we reset the chart each time we search for a new forecast so that the chart won't be in use
@@ -152,16 +204,16 @@ function clearForecastGraphic() {
     }
 }
 
-function clearLocationInfo() {
-    $locationInfo.innerHTML = "";
+function clearLocation() {
+    $location.innerHTML = "";
 }
 
-function clearWeatherInfo() {
-    $weatherInfo.innerHTML = "";
+function clearWeather() {
+    $weather.innerHTML = "";
 }
 
 function clearForecast() {
     clearForecastGraphic();
-    clearLocationInfo();
-    clearWeatherInfo();
+    clearLocation();
+    clearWeather();
 }
