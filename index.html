@@ -9,39 +9,47 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/main.css">
-  <title>Document</title>
+  <!-- Mapbox GL -->
+  <script src='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js'></script>
+  <link href='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css' rel='stylesheet' />
+  <title>Weather App</title>
 </head>
 <body>
-    <section class="widget-container">
-      <div class="info-container">
-        <div id="time" class="time"></div>
-        <div id="weather" class="weather"></div>
-        <div id="location"></div>
-      </div>
-      <div class="loading"></div>
+  <section class="container">
+    <div class="info-container">
+      <div id="time" class="time"></div>
+      <div id="weather" class="weather"></div>
+      <div id="location"></div>
+    </div>
+    <div class="loading"></div>
+    <div class="chart-section-container">
       <canvas id="chart" class="chart"></canvas>
-      <div class="form-container">
-        <form onsubmit="renderSearchByCity(event)">
-          <label for="city">City</label>
-          <input type="search" id="city" name="city" placeholder="eg. London">
-          <button type="submit">Search</button>
-        </form>
-        <br>
-        <form onsubmit="renderSearchByCoords(event)">
-          <label for="latitude">Latitude</label>
-          <input type="search" id="latitude" name="latitude" placeholder="eg. 46.770439">
-
-          <label for="city">Longitude</label>
-          <input type="search" id="longitude" name="longitude" placeholder="eg. 23.591423">
-          <button type="submit">Search</button>
-        </form>
+      <div id="map" style="width: 400px; height: 300px;"></div>
+      <div class="search-container">
+        <h3 class="search">Latest searched locations</h3>
+        <span id="list-message" class="list-message">No previous searches</span>
+        <div id="card-list" class="card-list"></div>
       </div>
-    </section>
-    <section class="search-container">
-      <h3 class="search">Latest searched locations</h3>
-      <span id="list-message" class="list-message">No previous searches</span>
-      <div id="card-list" class="card-list"></div>
-    </section>
+    </div>
+    <div class="form-container">
+      <form onsubmit="renderSearchByCity(event)">
+        <label for="city">City</label>
+        <input type="search" id="city" name="city" placeholder="eg. London">
+        <button type="submit">Search</button>
+      </form>
+      <br>
+      <form onsubmit="renderSearchByCoords(event)">
+        <label for="latitude">Latitude</label>
+        <input type="search" id="latitude" name="latitude" placeholder="eg. 46.770439">
+
+        <label for="city">Longitude</label>
+        <input type="search" id="longitude" name="longitude" placeholder="eg. 23.591423">
+        <button type="submit">Search</button>
+      </form>
+    </div>
+</section>
+  
+      
     <!-- Font awesome -->
     <script src="https://kit.fontawesome.com/ce9ffc1494.js" crossorigin="anonymous"></script>
     <!-- ChartJS -->
@@ -49,7 +57,8 @@
     <script src="js/api.js"></script>
     <script src="js/date.js"></script>
     <script src="js/components.js"></script>
-    <script src="js/render.js"></script>
+    <script src="js/map.js"></script>
     <script src="js/chart.js"></script>
+    <script src="js/render.js"></script>
 </body>
 </html>

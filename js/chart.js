@@ -1,6 +1,4 @@
 function generateChart(weeklyTemp) {
-
-
   myChart = new Chart(ctx, {
     type: "line",
     data: {

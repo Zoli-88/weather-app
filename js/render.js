@@ -26,7 +26,7 @@ function initRendering() {
     if (weatherDataList.length) {
         clearListMessage();
         renderCardList();
-    } 
+    }
     renderStatus();
     getCurrentTime();
     renderWeatherForecast();
@@ -56,6 +56,14 @@ function renderWeather(currentTemp, maxTemp, minTemp, weatherInfo, weatherInfoIc
     $weather.innerHTML = weatherComponent(currentTemp, maxTemp, minTemp, weatherInfo, weatherInfoIcon);
 }
 
+function renderMap() {
+    generateMap();
+}
+
+function renderForecastGraphic(weeklyTemp) {
+    generateChart(weeklyTemp);
+}
+
 async function renderWeatherForecast() {
     try {
         navigator.geolocation.getCurrentPosition(async position => {
@@ -76,6 +84,7 @@ async function renderWeatherForecast() {
             }
             clearStatus();
             renderForecastGraphic(weeklyTemp);
+            renderMap();
             renderLocation(city, country);
             renderWeather(currentTemp, maxTemp, minTemp, weatherInfo, weatherInfoIcon);
         })
@@ -83,10 +92,6 @@ async function renderWeatherForecast() {
     } catch (error) {
         console.log(error);
     }
-}
-
-function renderForecastGraphic(weeklyTemp) {
-    generateChart(weeklyTemp);
 }
 
 async function renderSearchByCity(e) {
@@ -195,7 +200,6 @@ function clearCardList() {
 function clearListMessage() {
     $listMessage.innerHTML = "";
 }
-
 
 function clearForecastGraphic() {
     // we reset the chart each time we search for a new forecast so that the chart won't be in use
