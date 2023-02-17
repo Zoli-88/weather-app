@@ -85,13 +85,18 @@ input {
   position: relative;
   width: 100%;
   max-width: 1440px;
-  margin: 14px auto;
-  padding: 32px;
+  margin: 0 auto;
+  padding: 12px;
 }
 
-.chart-section-container {
+.graphs-container {
   display: flex;
   justify-content: space-between;
+}
+
+.info-container, 
+.graphs-container {
+  margin-bottom: 16px;
 }
 
 .chart {
@@ -105,15 +110,13 @@ input {
 }
 
 .search {
-  margin: 24px 0;
-  text-align: center;
+  margin-bottom: 6px;
 }
 
 .weather-card {
+  margin: 6px;
   text-align: left;
-  margin: 6px 12px;
-  padding: 24px;
-  padding-left: 24px;
+  padding: 12px;
   border-left: 6px solid var(--btn-border-clr);
   border-radius: 6px;
   background: var(--bg-clr-card);
