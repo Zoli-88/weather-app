@@ -38,16 +38,15 @@
     <div class="form-container">
       <form onsubmit="renderSearchByCity(event)">
         <label for="city">City</label>
-        <input type="search" id="city" name="city" placeholder="eg. London">
+        <input type="search" id="city" name="city" placeholder="eg. London" required>
         <button type="submit">Search</button>
       </form>
       <br>
       <form onsubmit="renderSearchByCoords(event)">
         <label for="latitude">Latitude</label>
-        <input type="search" id="latitude" name="latitude" placeholder="eg. 46.770439">
-
+        <input type="search" id="latitude" name="latitude" placeholder="eg. 46.770439" required>
         <label for="city">Longitude</label>
-        <input type="search" id="longitude" name="longitude" placeholder="eg. 23.591423">
+        <input type="search" id="longitude" name="longitude" placeholder="eg. 23.591423" required>
         <button type="submit">Search</button>
       </form>
     </div>

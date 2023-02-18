@@ -7,6 +7,7 @@ const $loading = document.querySelector(".loading");
 const $time = document.querySelector("#time");
 const $location = document.querySelector("#location");
 const $weather = document.querySelector("#weather");
+const $map = document.querySelector("#map");
 const $cardList = document.querySelector("#card-list");
 const $listMessage = document.querySelector("#list-message");
 
@@ -56,8 +57,8 @@ function renderWeather(currentTemp, maxTemp, minTemp, weatherInfo, weatherInfoIc
     $weather.innerHTML = weatherComponent(currentTemp, maxTemp, minTemp, weatherInfo, weatherInfoIcon);
 }
 
-function renderMap() {
-    generateMap();
+function renderMap($map, lat, lon) {
+    generateMap($map, lat, lon);
 }
 
 function renderForecastGraphic(weeklyTemp) {
@@ -70,6 +71,8 @@ async function renderWeatherForecast() {
             const forecast = await listWeatherForecast(position.coords.latitude, position.coords.longitude);
             const city = forecast.city.name;
             const country = forecast.city.country;
+            const lat = forecast.city.coord.lat;
+            const lon = forecast.city.coord.lon;
             const currentDay = forecast.list[0];
             const currentTemp = Math.round(currentDay.main.temp);
             const maxTemp = Math.round(currentDay.main.temp_max);
@@ -84,7 +87,7 @@ async function renderWeatherForecast() {
             }
             clearStatus();
             renderForecastGraphic(weeklyTemp);
-            renderMap();
+            renderMap($map, lat, lon);
             renderLocation(city, country);
             renderWeather(currentTemp, maxTemp, minTemp, weatherInfo, weatherInfoIcon);
         })
@@ -100,10 +103,10 @@ async function renderSearchByCity(e) {
     const citySearch = formData.get("city");
 
     clearForecast();
+    clearMap();
     renderStatus();
     try {
         const forecast = await listWeatherForecast(null, null, citySearch);
-        console.log(forecast);
         const city = forecast.city.name;
         const country = forecast.city.country;
         const lat = forecast.city.coord.lat;
@@ -122,6 +125,7 @@ async function renderSearchByCity(e) {
         }
         clearStatus();
         renderForecastGraphic(weeklyTemp);
+        renderMap($map, lat, lon);
         renderLocation(city, country);
         renderWeather(currentTemp, maxTemp, minTemp, weatherInfo, weatherInfoIcon);
         let alreadyExists = false;
@@ -165,6 +169,8 @@ async function renderSearchByCoords(e) {
         const forecast = await listWeatherForecast(lat, lon, null);
         const city = forecast.city.name;
         const country = forecast.city.country;
+        // const lat = forecast.city.coord.lat;
+        // const lon = forecast.city.coord.lon;
         const currentDay = forecast.list[0];
         const currentTemp = Math.round(currentDay.main.temp);
         const maxTemp = Math.round(currentDay.main.temp_max);
@@ -179,6 +185,7 @@ async function renderSearchByCoords(e) {
         }
         clearStatus();
         renderForecastGraphic(weeklyTemp);
+        renderMap($map, lat, lon);
         renderLocation(city, country);
         renderWeather(currentTemp, maxTemp, minTemp, weatherInfo, weatherInfoIcon);
 
@@ -214,6 +221,10 @@ function clearLocation() {
 
 function clearWeather() {
     $weather.innerHTML = "";
+}
+
+function clearMap() {
+    $map.innerHTML = "";
 }
 
 function clearForecast() {
