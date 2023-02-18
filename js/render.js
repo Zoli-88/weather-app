@@ -229,6 +229,7 @@ function clearMap() {
 
 function clearForecast() {
     clearForecastGraphic();
+    clearMap();
     clearLocation();
     clearWeather();
 }

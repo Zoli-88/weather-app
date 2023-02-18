@@ -8,22 +8,27 @@
   /* Variables */
 
   /* Colors */
-  --text-clr-primary: #76a3ca;
-  --text-clr-accent: #202020;
-  --bg-clr-shadow: #000;
+  --primary-text: #76a3ca;
+  --accent-text: #202020;
+  --box-shadow: #000;
 
   /* Backgrounds */
-  --bg-clr-primary: #294a55;
-  --bg-clr-secondary: #161616;
-  --bg-clr-card: #222222;
-  
-  /* Buttons and Inputs */
-  --bg-btn-input-clr: #e0dede;
-  --btn-border-clr: #1c1cd3;
+  --primary-bg: #294a55;
+  --secondary-bg: #161616;
+  --card-bg: #222222;
   
   /* Border */
-  --border-clr: #389cce;
+  --border: #389cce;
   
+  /* Buttons and Inputs */
+  --input-bg: #e0dede;
+  --btn-bg: #222222;
+  --btn-border: #1c1cd3;
+
+  /* Custom scrollbar */
+  --scroll-bg: #222222;
+  --scroll-handler: #1c1cd3;
+
   /* Font weights */
   --light: 300;
   --regular: 400;
@@ -36,28 +41,31 @@ html {
 }
 
 body {
-  background: var(--bg-clr-secondary);
-  color: var(--text-clr-primary);
+  background: var(--secondary-bg);
+  color: var(--primary-text);
 }
 
 ul {
   list-style-type: none;
 }
 
+a {
+  text-decoration: none;
+  color: var(--primary-text);
+}
+
 i {
 font-size: 64px;
-color: var(--text-clr-primary);
+color: var(--primary-text);
 }
 
 input, 
-button, 
 input::placeholder {
   border: none;
   outline: none;
   font: inherit;
   font-weight: var(--semibold);
-  color: var(--text-clr-accent);
-  background: var(--bg-btn-input-clr);
+  color: var(--accent-text);
 }
 
 label {
@@ -65,18 +73,25 @@ label {
 }
 
 input {
+  background: var(--input-bg);
   width: 150px;
   margin: 0 2px;
   padding: 4px;
 }
 
 button {
+  border: none;
+  outline: none;
+  font: inherit;
   cursor: pointer;
+  color: var(--primary-text);
+  background: var(--btn-bg);
+  box-shadow: 5px 5px 5px 0px var(--box-shadow), inset 4px 4px 15px 0px var(--box-shadow), 5px 5px 15px 5px rgba(0,0,0,0);
 }
 
 button,
 input {
-  border-left: 6px solid var(--btn-border-clr);
+  border-left: 6px solid var(--btn-border);
   border-radius: 4px;
   padding: 6px 8px;
 }
@@ -106,7 +121,7 @@ input {
 
 .search-container {
   text-align: center;
-  background: var(--bg-clr-secondary);
+  background: var(--secondary-bg);
 }
 
 .search {
@@ -114,18 +129,33 @@ input {
 }
 
 .weather-card {
-  margin: 6px;
+  margin: 6px 12px;
   text-align: left;
   padding: 12px;
-  border-left: 6px solid var(--btn-border-clr);
+  border-left: 6px solid var(--btn-border);
   border-radius: 6px;
-  background: var(--bg-clr-card);
-  box-shadow: 5px 5px 5px 0px var(--bg-clr-shadow), inset 4px 4px 15px 0px var(--bg-clr-shadow), 5px 5px 15px 5px rgba(0,0,0,0);
+  background: var(--card-bg);
+  box-shadow: 5px 5px 5px 0px var(--box-shadow), inset 4px 4px 15px 0px var(--box-shadow), 5px 5px 15px 5px rgba(0,0,0,0);
 }
 
 .card-list {
   overflow-y: auto;
   max-height: calc(100% - 24px * 2 - 23px);
+}
+
+.card-list::-webkit-scrollbar {
+  background: var(--scroll-bg);
+  width: 6px;
+  border-radius: 2px;
+}
+ 
+.card-list::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+ 
+.card-list::-webkit-scrollbar-thumb {
+  background-color: var(--scroll-handler);
+  border-radius: 2px;
 }
 
 .info-container, 
