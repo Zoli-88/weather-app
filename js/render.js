@@ -18,7 +18,6 @@ let myChart;
 
 // Local storage
 let weatherDataList = JSON.parse(localStorage.getItem("weatherDataList")) || [];
-
 // On load
 initRendering();
 
@@ -39,7 +38,13 @@ function renderCardList() {
     uniqueWeatherList.forEach(weatherData => {
         $cardList.innerHTML += cardComponent(weatherData);
     })
+    // This is when the .weather-card divs are rendered
+    // console.log(document.querySelectorAll(".weather-card"
+    // ));
 }
+
+// function renderSearchCardInfo() {
+// }
 
 function renderStatus(error) {
     $loading.innerHTML = statusComponent(error);
@@ -64,6 +69,8 @@ function renderMap($map, lat, lon) {
 function renderForecastGraphic(weeklyTemp) {
     generateChart(weeklyTemp);
 }
+
+// Events
 
 async function renderWeatherForecast() {
     try {

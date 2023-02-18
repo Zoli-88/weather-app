@@ -38,13 +38,11 @@ function weatherComponent(currentTemp, maxTemp, minTemp, weatherInfo, weatherInf
 
 function cardComponent(weatherData) {
   return `
-  <a href="#!">
     <div class="weather-card">${weatherData.city}, ${weatherData.country}
     <br>
     Latitude: ${weatherData.lat}
     <br>
     Longitude: ${weatherData.lon}
     </div>
-  </a>
   `
 }
