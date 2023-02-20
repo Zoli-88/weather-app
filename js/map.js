@@ -7,5 +7,34 @@ function generateMap($map, lat, lon) {
         center: [lon, lat],
         zoom: 8
     });
+
+//     const geojson = {
+//         type: 'FeatureCollection',
+//         features: [
+//           {
+//             type: 'Feature',
+//             geometry: {
+//               type: 'Point',
+//               coordinates: [lon, lat]
+//             },
+//             properties: {
+//               title: 'Mapbox',
+//               description: 'Washington, D.C.'
+//             }
+//           }
+//         ]
+//       };
+      
+//       // add markers to map
+// for (const feature of geojson.features) {
+//     // create a HTML element for each feature
+//     const el = document.createElement('div');
+//     el.className = 'marker';
+  
+//     // make a marker for each feature and add to the map
+//     new mapboxgl.Marker(el).setLngLat(feature.geometry.coordinates).addTo(map);
+//   }
+  
+
 }
 

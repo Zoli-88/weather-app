@@ -33,9 +33,7 @@ function initRendering() {
 }
 
 function renderCardList() {
-    const uniqueWeatherList = [...new Set(weatherDataList)];
-
-    uniqueWeatherList.forEach(weatherData => {
+    weatherDataList.forEach(weatherData => {
         $cardList.innerHTML += cardComponent(weatherData);
     })
 }
@@ -110,8 +108,8 @@ async function renderSearchByCity(e, city) {
     }
 
     clearForecast();
-    clearMap();
     renderStatus();
+
     try {
         const forecast = await listWeatherForecast(null, null, citySearch);
         const city = forecast.city.name;
@@ -136,22 +134,24 @@ async function renderSearchByCity(e, city) {
         renderLocation(city, country);
         renderWeather(currentTemp, maxTemp, minTemp, weatherInfo, weatherInfoIcon);
         let alreadyExists = false;
-        let newWeatherData = {
-            // if the key value pairs are identical, no need to add the value
-            city,
-            country,
-            lat,
-            lon
-        }
 
         weatherDataList.forEach((weatherData, index) => {
             if (weatherData.lat === lat && weatherData.lon === lon) {
                 alreadyExists = true;
-                weatherDataList.unshift((weatherDataList[index]));
+                weatherDataList.splice(index, 1);
+                weatherDataList.unshift(weatherData);
+                localStorage.setItem("weatherDataList", JSON.stringify(weatherDataList))
             }
         })
 
         if (!alreadyExists) {
+            const newWeatherData = {
+                // if the key value pairs are identical, no need to add the value
+                city,
+                country,
+                lat,
+                lon
+            }
             weatherDataList.unshift(newWeatherData)
             localStorage.setItem("weatherDataList", JSON.stringify(weatherDataList))
         }
