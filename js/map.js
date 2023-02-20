@@ -5,7 +5,7 @@ function generateMap($map, lat, lon) {
         container: $map,
         style: 'mapbox://styles/mapbox/outdoors-v12',
         center: [lon, lat],
-        zoom: 1
+        zoom: 8
     });
 }
 

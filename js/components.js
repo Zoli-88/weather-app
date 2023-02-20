@@ -38,7 +38,7 @@ function weatherComponent(currentTemp, maxTemp, minTemp, weatherInfo, weatherInf
 
 function cardComponent(weatherData) {
   return `
-    <div class="weather-card">${weatherData.city}, ${weatherData.country}
+    <div class="weather-card" onclick="renderSearchByCity(null, '${weatherData.city}')">${weatherData.city}, ${weatherData.country}
     <br>
     Latitude: ${weatherData.lat}
     <br>

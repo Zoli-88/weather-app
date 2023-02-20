@@ -38,13 +38,7 @@ function renderCardList() {
     uniqueWeatherList.forEach(weatherData => {
         $cardList.innerHTML += cardComponent(weatherData);
     })
-    // This is when the .weather-card divs are rendered
-    // console.log(document.querySelectorAll(".weather-card"
-    // ));
 }
-
-// function renderSearchCardInfo() {
-// }
 
 function renderStatus(error) {
     $loading.innerHTML = statusComponent(error);
@@ -104,10 +98,16 @@ async function renderWeatherForecast() {
     }
 }
 
-async function renderSearchByCity(e) {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    const citySearch = formData.get("city");
+async function renderSearchByCity(e, city) {
+    let citySearch;
+
+    if (e) {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        citySearch = formData.get("city");
+    } else {
+        citySearch = city;
+    }
 
     clearForecast();
     clearMap();
@@ -144,9 +144,10 @@ async function renderSearchByCity(e) {
             lon
         }
 
-        weatherDataList.forEach(weatherData => {
+        weatherDataList.forEach((weatherData, index) => {
             if (weatherData.lat === lat && weatherData.lon === lon) {
                 alreadyExists = true;
+                weatherDataList.unshift((weatherDataList[index]));
             }
         })
 
