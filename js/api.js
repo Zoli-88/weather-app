@@ -22,28 +22,3 @@ async function listWeatherForecast(lat, lon, citySearch) {
 
     return data;
 }
-
-// let currentLocation = {
-//     lat: null,
-//     lon: null
-// };
-
-// const GEOLOCATION_OPTIONS = {
-//     enableHighAccuracy: true,
-//     timeout: 5000,
-//     maximumAge: 0
-// };
-
-// function getUsersLocation() {
-//     navigator.geolocation.getCurrentPosition(setPosition,handleErrorGeolocation, GEOLOCATION_OPTIONS);
-// }
-
-// function setPosition(position) {
-//     console.log(position);
-//     currentLocation.lat = position.coords.latitude;
-//     currentLocation.lon = position.coords.longitude;    
-// }
-
-// function handleErrorGeolocation(err) {
-//     console.warn(`ERROR(${err.code}): ${err.message}`);
-// }

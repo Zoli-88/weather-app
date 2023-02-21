@@ -128,11 +128,7 @@ async function renderSearchByCity(e, city) {
             const dailyTemp = Math.round(forecast.list[i].main.temp);
             weeklyTemp.push(dailyTemp);
         }
-        clearStatus();
-        renderForecastGraphic(weeklyTemp);
-        renderMap($map, lat, lon);
-        renderLocation(city, country);
-        renderWeather(currentTemp, maxTemp, minTemp, weatherInfo, weatherInfoIcon);
+        
         let alreadyExists = false;
 
         weatherDataList.forEach((weatherData, index) => {
@@ -156,9 +152,15 @@ async function renderSearchByCity(e, city) {
             localStorage.setItem("weatherDataList", JSON.stringify(weatherDataList))
         }
 
+        clearStatus();
+        renderForecastGraphic(weeklyTemp);
+        renderMap($map, lat, lon);
+        renderLocation(city, country);
+        renderWeather(currentTemp, maxTemp, minTemp, weatherInfo, weatherInfoIcon);
         clearListMessage();
         clearCardList();
         renderCardList();
+
     } catch (error) {
         clearStatus();
         renderStatus(error);
@@ -168,17 +170,17 @@ async function renderSearchByCity(e, city) {
 async function renderSearchByCoords(e) {
     e.preventDefault();
     const formData = new FormData(e.target);
-    const lat = formData.get("latitude");
-    const lon = formData.get("longitude");
+    const latSearch = formData.get("latitude");
+    const lonSearch = formData.get("longitude");
 
     clearForecast();
     renderStatus();
     try {
-        const forecast = await listWeatherForecast(lat, lon, null);
+        const forecast = await listWeatherForecast(latSearch, lonSearch, null);
         const city = forecast.city.name;
         const country = forecast.city.country;
-        // const lat = forecast.city.coord.lat;
-        // const lon = forecast.city.coord.lon;
+        const lat = forecast.city.coord.lat;
+        const lon = forecast.city.coord.lon;
         const currentDay = forecast.list[0];
         const currentTemp = Math.round(currentDay.main.temp);
         const maxTemp = Math.round(currentDay.main.temp_max);
@@ -191,11 +193,38 @@ async function renderSearchByCoords(e) {
             const dailyTemp = Math.round(forecast.list[i].main.temp);
             weeklyTemp.push(dailyTemp);
         }
+
+        let alreadyExists = false;
+
+        weatherDataList.forEach((weatherData, index) => {
+            if (weatherData.lat === lat && weatherData.lon === lon) {
+                alreadyExists = true;
+                weatherDataList.splice(index, 1);
+                weatherDataList.unshift(weatherData);
+                localStorage.setItem("weatherDataList", JSON.stringify(weatherDataList))
+            }
+        })
+
+        if (!alreadyExists) {
+            const newWeatherData = {
+                // if the key value pairs are identical, no need to add the value
+                city,
+                country,
+                lat,
+                lon
+            }
+            weatherDataList.unshift(newWeatherData)
+            localStorage.setItem("weatherDataList", JSON.stringify(weatherDataList))
+        }
+
         clearStatus();
         renderForecastGraphic(weeklyTemp);
         renderMap($map, lat, lon);
         renderLocation(city, country);
         renderWeather(currentTemp, maxTemp, minTemp, weatherInfo, weatherInfoIcon);
+        clearListMessage();
+        clearCardList();
+        renderCardList();
 
     } catch (error) {
         clearStatus();
